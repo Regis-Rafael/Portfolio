@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portfólio de Rafael Régis - Desenvolvedor Frontend especializado em React, Vue e Next.js">
+  <title>Rafael Régis | Desenvolvedor Front-end</title>
+  <link rel="shortcut icon" type="image/png" href="favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #613904;
+      --primary-dark: #4a2c02;
+      --dark: #121212;
+      --darker: #0d0d0d;
+      --light: #f8f9fa;
+      --gray: #e9ecef;
+      --accent: #ff9e1b;
+      --transition: all 0.3s ease;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      --card-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+      --border-radius: 12px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, var(--darker), var(--dark));
+      color: var(--light);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    section {
+      padding: 5rem 0;
+    }
+
+    /* Header e Navegação */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(18, 18, 18, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      padding: 1.2rem 0;
+      transition: var(--transition);
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo span {
+      color: var(--light);
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      color: var(--light);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      position: relative;
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding-top: 5rem;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at top right, rgba(97, 57, 4, 0.15), transparent 70%);
+      z-index: -1;
+    }
+
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      max-width: 650px;
+    }
+
+    .hero-subtitle {
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      font-size: 3.5rem;
+      font-weight: 800;
+      line-height: 1.1;
+      margin: 0.5rem 0;
+    }
+
+    .hero-title span {
+      color: var(--accent);
+      position: relative;
+    }
+
+    .hero-title span::after {
+      position: absolute;
+      right: -50px;
+      top: -15px;
+      font-size: 2.5rem;
+    }
+
+    .hero-text {
+      font-size: 1.1rem;
+      color: var(--gray);
+      margin-bottom: 1.5rem;
+      max-width: 600px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.9rem 2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: var(--border-radius);
+      text-decoration: none;
+      transition: var(--transition);
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--darker);
+    }
+
+    .btn-primary:hover {
+      background: transparent;
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      color: var(--light);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--accent);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+
+    /* Cards e Grids */
+    .grid {
+      display: grid;
+      gap: 2rem;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      text-align: center;
+      position: relative;
+      padding-bottom: 1rem;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--gray);
+      max-width: 700px;
+      margin: 0 auto 4rem;
+      font-size: 1.1rem;
+    }
+
+    .card {
+      background: rgba(30, 30, 30, 0.7);
+      border-radius: var(--border-radius);
+      padding: 2.5rem;
+      text-align: left;
+      box-shadow: var(--card-shadow);
+      transition: var(--transition);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+      border-color: rgba(255, 158, 27, 0.2);
+    }
+
+    .card-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--accent);
+    }
+
+    .card-title {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--accent);
+    }
+
+    .card-content {
+      color: var(--gray);
+      flex-grow: 1;
+    }
+
+    .card-content p {
+      margin-bottom: 1.5rem;
+    }
+
+    .tech-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-top: 1.5rem;
+    }
+
+    .tech-item {
+      background: rgba(255, 158, 27, 0.1);
+      color: var(--accent);
+      padding: 0.5rem 1rem;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    /* Projetos */
+    .project-item {
+      margin-bottom: 2rem;
+    }
+
+    .project-item h3 {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 1.4rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .project-item h3 i {
+      color: var(--accent);
+    }
+
+    .project-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 0.5rem 0 1rem;
+    }
+
+    .project-tech span {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--accent);
+      padding: 0.3rem 0.8rem;
+      border-radius: 30px;
+      font-size: 0.8rem;
+    }
+
+    /* Contato */
+    .contact-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .contact-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .contact-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+      background: rgba(30, 30, 30, 0.7);
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      width: 180px;
+      text-decoration: none;
+      color: var(--light);
+      transition: var(--transition);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .contact-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+      background: rgba(97, 57, 4, 0.2);
+      border-color: rgba(255, 158, 27, 0.2);
+    }
+
+    .contact-btn i {
+      font-size: 2.5rem;
+      color: var(--accent);
+    }
+
+    .contact-btn span {
+      font-weight: 500;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--darker);
+      padding: 3rem 0;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .footer-logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      margin: 1.5rem 0;
+    }
+
+    .footer-links a {
+      color: var(--gray);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1.5rem;
+      margin: 1rem 0;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--light);
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+
+    .social-link:hover {
+      background: var(--accent);
+      color: var(--darker);
+      transform: translateY(-3px);
+    }
+
+    .copyright {
+      color: var(--gray);
+      font-size: 0.9rem;
+      margin-top: 1.5rem;
+    }
+
+    /* Responsividade */
+    @media (max-width: 992px) {
+      .hero-title {
+        font-size: 3rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero-title {
+        font-size: 2.5rem;
+      }
+
+      .hero-title span::after {
+        right: -40px;
+        top: -10px;
+        font-size: 2rem;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+      }
+
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title {
+        font-size: 2.2rem;
+      }
+
+      .hero-title span::after {
+        content: none;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container header-container">
+      <a href="#" class="logo">
+        <i class="fas fa-code"></i>
+        <span>Rafael Régis</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#tecnologias">Tecnologias</a></li>
+        <li><a href="#projetos">Projetos</a></li>
+        <li><a href="#formacao">Formação</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-subtitle">DESENVOLVEDOR FRONT-END</div>
+        <h1 class="hero-title">Transformando ideias em <span>experiências digitais</span></h1>
+        <p class="hero-text">
+          Especialista em criar interfaces modernas, responsivas e acessíveis com foco em performance e experiência do usuário. 
+          Combino habilidades técnicas com design intuitivo para construir soluções que encantam e performam.
+        </p>
+        <div class="hero-buttons">
+          <a href="#contato" class="btn btn-primary">
+            <i class="fas fa-paper-plane"></i> Contato
+          </a>
+          <a href="#projetos" class="btn btn-secondary">
+            <i class="fas fa-laptop-code"></i> Ver Projetos
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tecnologias -->
+  <section id="tecnologias">
+    <div class="container">
+      <h2 class="section-title">Tecnologias</h2>
+      <p class="section-subtitle">Domínio das principais tecnologias do ecossistema frontend moderno</p>
+      
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-icon">
+            <i class="fab fa-js"></i>
+          </div>
+          <h3 class="card-title">Frontend Essencial</h3>
+          <div class="card-content">
+            <p>Desenvolvimento de interfaces responsivas e acessíveis com as melhores práticas do mercado.</p>
+            <div class="tech-list">
+              <span class="tech-item">HTML5</span>
+              <span class="tech-item">CSS3</span>
+              <span class="tech-item">JavaScript</span>
+              <span class="tech-item">TypeScript</span>
+              <span class="tech-item">Node.js</span>
+              <span class="tech-item">SASS/SCSS</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-icon">
+            <i class="fas fa-layer-group"></i>
+          </div>
+          <h3 class="card-title">Frameworks & Bibliotecas</h3>
+          <div class="card-content">
+            <p>Experiência com os principais frameworks e bibliotecas para desenvolvimento web e mobile.</p>
+            <div class="tech-list">
+              <span class="tech-item">React.js / React Native</span>
+              <span class="tech-item">Next.js</span>
+              <span class="tech-item">Vue.js</span>
+              <span class="tech-item">Vite</span>
+              <span class="tech-item">EAS</span>
+              <span class="tech-item">Expo</span>
+              <span class="tech-item">Tailwind CSS</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projetos -->
+  <section id="projetos" style="background: rgba(18, 18, 18, 0.7);">
+    <div class="container">
+      <h2 class="section-title">Projetos</h2>
+      <p class="section-subtitle">Alguns dos meus principais trabalhos e realizações</p>
+      
+      <div class="card">
+        <div class="project-item">
+          <h3><i class="fas fa-book-open"></i> SAL - Rede Social Literária</h3>
+          <div class="project-tech">
+            <span>React Native</span>
+            <span>Python</span>
+            <span>Expo</span>
+            <span>EAS</span>
+          </div>
+          <p>Projeto academico de uma plataforma social inovadora que conecta estudantes e amantes de literatura. Permite compartilhar resenhas, 
+            organizar clubes de leitura e descobrir novos livros baseados em preferências pessoais.</p>
+        </div>
+        
+        <div class="project-item">
+          <h3><i class="fas fa-laptop"></i> LickShop - E-commerce</h3>
+          <div class="project-tech">
+            <span>Vue.js</span>
+            <span>java</span>
+            <span>Vite</span>
+            <span>Tailwind CSS</span>
+          </div>
+          <p>Projeto academico de um e-commerce de produtos de Sexshop com foco em usabilidade e performance.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Formação -->
+  <section id="formacao">
+    <div class="container">
+      <h2 class="section-title">Formação</h2>
+      <p class="section-subtitle">Minha jornada acadêmica e profissional</p>
+      
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-icon">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <h3 class="card-title">Educação</h3>
+          <div class="card-content">
+            <p><strong>Tecnólogo em Análise e Desenvolvimento de Sistemas</strong></p>
+            <l>Senac - Conclusão em 2025</l>
+            <p>Formação focada em desenvolvimento de software, arquitetura de sistemas e gestão de projetos.</p>
+          </div>
+          <div class="card-content">
+            <p><strong>Tecnico em Redes de Computadores</strong></p>
+            <l>Senai - Conclusão em 2022</l>
+            <p>Formação focada em análise de redes, protocolos de comunicação e segurança e cabeamento estruturado.</p>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-icon">
+            <i class="fas fa-certificate"></i>
+          </div>
+          <h3 class="card-title">Certificações</h3>
+          <div class="card-content">
+            <p><strong>JavaScript</strong> - Curso em Vídeo</p>
+            <p><strong>React Avançado</strong> - Udemy</p>
+            <p><strong>Next.js & Server-Side Rendering</strong> - Alura</p>
+            <p><strong>UI/UX Design Principles</strong> - Coursera</p>
+            <p><strong>Web Accessibility</strong> - W3C</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contato -->
+  <section id="contato">
+    <div class="container">
+      <h2 class="section-title">Contato</h2>
+      <p class="section-subtitle">Vamos trabalhar juntos? Entre em contato por qualquer um dos canais abaixo</p>
+      
+      <div class="contact-container">
+        <div class="contact-buttons">
+          <a href="mailto:rafaelregis2004@gmail.com" class="contact-btn">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+          </a>
+          <a href="https://www.linkedin.com/in/rafael-regis" target="_blank" class="contact-btn">
+            <i class="fab fa-linkedin-in"></i>
+            <span>LinkedIn</span>
+          </a>
+          <a href="https://github.com/Regis-Rafael" target="_blank" class="contact-btn">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-content">
+      <div class="footer-logo">Rafael Régis</div>
+      
+      <ul class="footer-links">
+        <li><a href="#tecnologias">Tecnologias</a></li>
+        <li><a href="#projetos">Projetos</a></li>
+        <li><a href="#formacao">Formação</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+      
+      <div class="social-links">
+        <a href="mailto:rafaelregis2004@gmail.com" class="social-link">
+          <i class="fas fa-envelope"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/rafael-regis" target="_blank" class="social-link">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+        <a href="https://github.com/Regis-Rafael" target="_blank" class="social-link">
+          <i class="fab fa-github"></i>
+        </a>
+      </div>
+      
+      <p class="copyright">© 2025 Rafael Régis.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Efeito de scroll suave
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Efeito de header ao scrollar
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('header');
+      if (window.scrollY > 100) {
+        header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.3)';
+        header.style.padding = '0.8rem 0';
+      } else {
+        header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.2)';
+        header.style.padding = '1.2rem 0';
+      }
+    });
+  </script>
+</body>
+</html>
