@@ -122,6 +122,13 @@
       align-items: center;
       position: relative;
       padding-top: 5rem;
+      background-image: url('Design.png');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-color: var(--dark);
+      background-blend-mode:soft-light;
+      background-size: cover;
+      background-position: center;
     }
 
     .hero::before {
@@ -301,6 +308,16 @@
 
     .card-content p {
       margin-bottom: 1.5rem;
+    }
+
+    .cert-img {
+      display: none;
+      width: 300px;
+      height: auto;
+      margin-top: 5px;
+    }
+    .certificate:hover .cert-img {
+      display: block;
     }
 
     .tech-list {
@@ -561,14 +578,14 @@
   <section id="tecnologias">
     <div class="container">
       <h2 class="section-title">Tecnologias</h2>
-      <p class="section-subtitle">Domínio das principais tecnologias do ecossistema frontend moderno</p>
+      <p class="section-subtitle">Principais tecnologias utilizadas</p>
       
       <div class="grid grid-2">
         <div class="card">
           <div class="card-icon">
             <i class="fab fa-js"></i>
           </div>
-          <h3 class="card-title">Frontend Essencial</h3>
+          <h3 class="card-title">Frontend</h3>
           <div class="card-content">
             <p>Desenvolvimento de interfaces responsivas e acessíveis com as melhores práticas do mercado.</p>
             <div class="tech-list">
@@ -577,6 +594,7 @@
               <span class="tech-item">JavaScript</span>
               <span class="tech-item">TypeScript</span>
               <span class="tech-item">Node.js</span>
+              <span class="tech-item">Rest API</span>
               <span class="tech-item">SASS/SCSS</span>
             </div>
           </div>
@@ -593,11 +611,25 @@
               <span class="tech-item">React.js / React Native</span>
               <span class="tech-item">Next.js</span>
               <span class="tech-item">Vue.js</span>
-              <span class="tech-item">Vite</span>
+              <span class="tech-item">Vite.js</span>
               <span class="tech-item">EAS</span>
               <span class="tech-item">Expo</span>
               <span class="tech-item">Tailwind CSS</span>
             </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-icon">
+            <i class="fas fa-palette"></i>
+          </div>
+          <h3 class="card-title">UX/UI</h3>
+          <div class="card-content">
+            <p>Desenvolvimento de interfaces modernas e acessíveis com foco em performance e experiência do usuário.</p>
+            <div class="tech-list">
+              <span class="tech-item">Figma</span>
+              <span class="tech-item">Canva</span>
+              <span class="tech-item">Miro</span>
+              <span class="tech-item">Excalidraw</span>
           </div>
         </div>
       </div>
@@ -608,7 +640,7 @@
   <section id="projetos" style="background: rgba(18, 18, 18, 0.7);">
     <div class="container">
       <h2 class="section-title">Projetos</h2>
-      <p class="section-subtitle">Alguns dos meus principais trabalhos e realizações</p>
+      <p class="section-subtitle">Alguns dos meus principais trabalhos, alem de projetos pessoais</p>
       
       <div class="card">
         <div class="project-item">
