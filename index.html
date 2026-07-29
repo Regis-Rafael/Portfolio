@@ -3,11 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Portfólio de Rafael Régis, desenvolvedor Full Stack especializado em aplicações web e mobile com React, React Native, Node.js e PostgreSQL." />
+  <meta name="description" content="Portfólio de Rafael Régis, desenvolvedor Full Stack especializado em aplicações web e mobile com React, React Native, Node.js e PostgreSQL, e em desenvolvimento assistido por IA com Claude Code." />
   <meta name="theme-color" content="#090a0f" />
   <meta property="og:title" content="Rafael Régis | Desenvolvedor Full Stack" />
-  <meta property="og:description" content="Aplicações web e mobile, integrações com APIs, dashboards, automações e produtos digitais corporativos." />
-  <meta property="og:image" content="Design.png" />
+  <meta property="og:description" content="Aplicações web e mobile, integrações com APIs, dashboards, automações, IA aplicada ao desenvolvimento e produtos digitais corporativos." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://regis-rafael.github.io/Portfolio/" />
+  <meta property="og:image" content="https://regis-rafael.github.io/Portfolio/Design.png" />
+  <meta name="twitter:card" content="summary_large_image" />
   <title>Rafael Régis | Desenvolvedor Full Stack</title>
   <link rel="shortcut icon" type="image/png" href="favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -29,6 +32,8 @@
       --shadow: 0 20px 70px rgba(0, 0, 0, 0.35);
       --radius: 8px;
       --container: 1180px;
+      --brand-gradient: linear-gradient(120deg, #5b8cff 0%, #8f6bff 38%, #ff765f 72%, #6ee7b7 100%);
+      --glow: 0 0 40px rgba(91, 140, 255, 0.35);
     }
 
     * {
@@ -154,6 +159,40 @@
       background: rgba(255, 255, 255, 0.07);
     }
 
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .lang-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 40px;
+      padding: 0 13px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--muted);
+      font: inherit;
+      font-size: 0.86rem;
+      font-weight: 700;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: color 180ms ease, background 180ms ease, border-color 180ms ease;
+    }
+
+    .lang-toggle:hover {
+      border-color: rgba(91, 140, 255, 0.5);
+      background: rgba(91, 140, 255, 0.12);
+      color: var(--text);
+    }
+
+    .lang-toggle i {
+      color: var(--accent);
+    }
+
     .menu-toggle {
       display: none;
       width: 42px;
@@ -231,14 +270,20 @@
 
     h1 {
       max-width: 820px;
-      font-size: clamp(2.65rem, 7vw, 5.8rem);
-      line-height: 0.98;
+      font-size: clamp(2.1rem, 5vw, 4.1rem);
+      line-height: 1.04;
       letter-spacing: 0;
-      font-weight: 800;
+      font-weight: 400;
     }
 
     .gradient-text {
-      color: var(--accent);
+      background: var(--brand-gradient);
+      background-size: 220% 220%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      animation: hueShift 9s ease-in-out infinite;
     }
 
     .hero-text {
@@ -501,6 +546,45 @@
       font-weight: 700;
     }
 
+    /* Coluna dividida ao meio: dois cards compactos ocupando a largura de um */
+    .card-stack {
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      gap: 18px;
+      min-height: 100%;
+    }
+
+    .card-compact {
+      padding: 20px;
+    }
+
+    .card-compact .icon-box {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 13px;
+      font-size: 1rem;
+    }
+
+    .card-compact h3 {
+      margin-bottom: 7px;
+      font-size: 1.06rem;
+    }
+
+    .card-compact p {
+      font-size: 0.92rem;
+    }
+
+    .card-compact .tags {
+      margin-top: 13px;
+      gap: 7px;
+    }
+
+    .card-compact .tag {
+      min-height: 27px;
+      padding: 0 9px;
+      font-size: 0.76rem;
+    }
+
     .experience {
       display: grid;
       gap: 16px;
@@ -575,6 +659,131 @@
       transform: translateY(-2px);
     }
 
+    /* ---- Prints de projeto + lightbox ---- */
+    .project-shot {
+      position: relative;
+      display: block;
+      width: auto;
+      margin: -24px -24px 0;
+      padding: 0;
+      border: 0;
+      border-bottom: 1px solid var(--line);
+      background: rgba(6, 8, 13, 0.6);
+      color: inherit;
+      font: inherit;
+      cursor: zoom-in;
+      overflow: hidden;
+    }
+
+    .project-shot[hidden] {
+      display: none;
+    }
+
+    .project-shot img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      object-position: top left;
+      transition: transform 420ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .project-shot:hover img,
+    .project-shot:focus-visible img {
+      transform: scale(1.03);
+    }
+
+    .shot-hint {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 11px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 999px;
+      background: rgba(9, 10, 15, 0.78);
+      backdrop-filter: blur(6px);
+      color: var(--text);
+      font-size: 0.76rem;
+      font-weight: 700;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 220ms ease, transform 220ms ease;
+    }
+
+    .project-shot:hover .shot-hint,
+    .project-shot:focus-visible .shot-hint {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .shot-note {
+      margin-top: -8px;
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    .lightbox {
+      width: min(96vw, 1500px);
+      max-width: none;
+      max-height: 92vh;
+      padding: 0;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      color: var(--text);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .lightbox::backdrop {
+      background: rgba(4, 5, 9, 0.82);
+      backdrop-filter: blur(4px);
+    }
+
+    .lightbox img {
+      width: 100%;
+      max-height: calc(92vh - 74px);
+      object-fit: contain;
+      background: #06080d;
+    }
+
+    .lightbox-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 16px;
+      border-top: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .lightbox-caption {
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .lightbox-close {
+      width: 40px;
+      height: 40px;
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text);
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 180ms ease, border-color 180ms ease;
+    }
+
+    .lightbox-close:hover {
+      border-color: rgba(91, 140, 255, 0.5);
+      background: rgba(91, 140, 255, 0.14);
+    }
+
     .timeline {
       display: grid;
       gap: 14px;
@@ -593,6 +802,46 @@
     .timeline-item span,
     .timeline-item p {
       color: var(--muted);
+    }
+
+    /* Fade-in suave de itens internos, cada um ao entrar na tela */
+    .soft-reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1), transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+
+    .soft-reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .timeline-item.is-upcoming {
+      border-left-style: dashed;
+      border-left-color: rgba(110, 231, 183, 0.5);
+    }
+
+    .timeline-item.is-upcoming strong {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      color: var(--muted);
+    }
+
+    .soon-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 9px;
+      border: 1px solid rgba(110, 231, 183, 0.4);
+      border-radius: 999px;
+      background: rgba(110, 231, 183, 0.12);
+      color: var(--accent-3);
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
     .contact-band {
@@ -666,6 +915,271 @@
       font-size: 0.92rem;
     }
 
+    /* ---- Sobre mim ---- */
+    .about-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 0.68fr);
+      gap: 22px;
+      align-items: start;
+    }
+
+    .about-lead {
+      font-size: 1.06rem;
+      color: #d5deeb;
+    }
+
+    .about-copy p + p {
+      margin-top: 14px;
+      color: var(--muted);
+    }
+
+    .about-copy .signoff {
+      margin-top: 18px;
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .fact-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .fact {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .fact .fact-ic {
+      width: 40px;
+      height: 40px;
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(91, 140, 255, 0.26);
+      border-radius: var(--radius);
+      background: rgba(91, 140, 255, 0.09);
+      color: var(--accent);
+    }
+
+    .fact strong {
+      display: block;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .fact span {
+      display: block;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .interests {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    /* ---- IA ---- */
+    .ai-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(300px, 0.72fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .tool-card {
+      display: grid;
+      gap: 14px;
+    }
+
+    .tool-head {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .tool-head h3 {
+      margin: 0;
+    }
+
+    .tool-head span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .tool-head .icon-box {
+      margin-bottom: 0;
+      flex: 0 0 auto;
+    }
+
+    .check-list {
+      display: grid;
+      gap: 10px;
+      list-style: none;
+    }
+
+    .check-list li {
+      display: flex;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .check-list i {
+      margin-top: 6px;
+      flex: 0 0 auto;
+      font-size: 0.7rem;
+      color: var(--accent-3);
+    }
+
+    .terminal {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(6, 8, 13, 0.86);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .terminal-body {
+      padding: 18px;
+      font-family: ui-monospace, SFMono-Regular, "Cascadia Code", Consolas, monospace;
+      font-size: 0.84rem;
+      line-height: 1.85;
+      overflow-x: auto;
+    }
+
+    .terminal-body p {
+      white-space: pre;
+      color: #cdd8ea;
+    }
+
+    .terminal-body .t-prompt { color: var(--accent-3); }
+    .terminal-body .t-cmd { color: var(--text); font-weight: 700; }
+    .terminal-body .t-muted { color: #75809a; }
+    .terminal-body .t-ok { color: var(--accent-3); }
+    .terminal-body .t-hl { color: var(--accent); }
+
+    /* ---- Certificados ---- */
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .filter {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 38px;
+      padding: 0 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--muted);
+      font: inherit;
+      font-size: 0.86rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: color 180ms ease, background 180ms ease, border-color 180ms ease;
+    }
+
+    .filter:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .filter.is-active {
+      border-color: rgba(91, 140, 255, 0.5);
+      background: rgba(91, 140, 255, 0.15);
+      color: #dbe7ff;
+    }
+
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 16px;
+    }
+
+    .cert {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 20px;
+    }
+
+    .cert[hidden] {
+      display: none;
+    }
+
+    .cert-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .cert-issuer {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent-2);
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+
+    .cert-hours {
+      flex: 0 0 auto;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .cert h3 {
+      margin: 0;
+      font-size: 1.02rem;
+      line-height: 1.3;
+    }
+
+    .cert-meta {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .cert-open {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--accent);
+      font-weight: 800;
+    }
+
+    .cert-open:hover {
+      text-decoration: underline;
+    }
+
+    .cert-note {
+      margin-top: 20px;
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
     .reveal {
       opacity: 0;
       transform: translateY(22px);
@@ -677,14 +1191,328 @@
       transform: translateY(0);
     }
 
+    /* ============ Animações & gradientes ============ */
+    @keyframes hueShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    @keyframes floaty {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-14px); }
+    }
+
+    @keyframes blobDrift {
+      0% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(6vw, 4vh) scale(1.12); }
+      66% { transform: translate(-4vw, -3vh) scale(0.94); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.55); opacity: 0.55; }
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-120%) skewX(-18deg); }
+      100% { transform: translateX(320%) skewX(-18deg); }
+    }
+
+    @keyframes borderSpin {
+      to { transform: rotate(1turn); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(26px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Aurora de fundo */
+    .aurora {
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .aurora-blob {
+      position: absolute;
+      display: block;
+      width: 46vw;
+      height: 46vw;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.5;
+      mix-blend-mode: screen;
+      will-change: transform;
+    }
+
+    .aurora-blob.b1 {
+      top: -12vh;
+      left: -8vw;
+      background: radial-gradient(circle, rgba(91, 140, 255, 0.85), transparent 62%);
+      animation: blobDrift 22s ease-in-out infinite;
+    }
+
+    .aurora-blob.b2 {
+      top: 8vh;
+      right: -12vw;
+      background: radial-gradient(circle, rgba(255, 118, 95, 0.7), transparent 62%);
+      animation: blobDrift 27s ease-in-out infinite reverse;
+    }
+
+    .aurora-blob.b3 {
+      bottom: -18vh;
+      left: 28vw;
+      background: radial-gradient(circle, rgba(110, 231, 183, 0.55), transparent 62%);
+      animation: blobDrift 31s ease-in-out infinite;
+    }
+
+    /* Barra de progresso do scroll */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      width: 100%;
+      transform: scaleX(0);
+      transform-origin: left;
+      z-index: 30;
+      background: var(--brand-gradient);
+      background-size: 220% 100%;
+      box-shadow: 0 0 14px rgba(91, 140, 255, 0.6);
+      animation: hueShift 9s ease-in-out infinite;
+    }
+
+    /* Marca com brilho pulsante */
+    .brand-mark {
+      position: relative;
+      overflow: hidden;
+      transition: transform 260ms ease, box-shadow 260ms ease;
+    }
+
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: conic-gradient(from 0deg, transparent, rgba(91, 140, 255, 0.55), transparent 40%);
+      animation: borderSpin 5s linear infinite;
+    }
+
+    .brand-mark i {
+      position: relative;
+      z-index: 1;
+    }
+
+    .brand:hover .brand-mark {
+      transform: rotate(-6deg) scale(1.06);
+      box-shadow: 0 14px 40px rgba(91, 140, 255, 0.4);
+    }
+
+    /* Link de navegação com sublinhado em gradiente */
+    .nav-links a {
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 13px;
+      right: 13px;
+      bottom: 6px;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--brand-gradient);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 240ms ease;
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.is-active::after {
+      transform: scaleX(1);
+    }
+
+    /* Ponto do eyebrow pulsando */
+    .eyebrow::before {
+      animation: pulseDot 2.4s ease-in-out infinite;
+    }
+
+    /* Botões: brilho e sweep */
+    .button {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .button-primary {
+      background: var(--brand-gradient);
+      background-size: 200% 200%;
+      color: #05121f;
+      animation: hueShift 9s ease-in-out infinite;
+    }
+
+    .button-primary:hover {
+      box-shadow: 0 20px 46px rgba(91, 140, 255, 0.45), var(--glow);
+    }
+
+    .button::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 40%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+      transform: translateX(-120%) skewX(-18deg);
+    }
+
+    .button:hover::before {
+      animation: shimmer 900ms ease;
+    }
+
+    .button-secondary:hover {
+      border-color: rgba(91, 140, 255, 0.5);
+      background: rgba(91, 140, 255, 0.12);
+    }
+
+    /* Painel do hero flutuando */
+    .hero-panel {
+      animation: floaty 7s ease-in-out infinite;
+    }
+
+    .hero-panel:hover {
+      animation-play-state: paused;
+    }
+
+    /* Kicker com gradiente */
+    .section-kicker {
+      display: inline-block;
+      background: linear-gradient(90deg, var(--accent-2), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+    }
+
+    /* Métricas em gradiente */
+    .metric strong {
+      background: var(--brand-gradient);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      animation: hueShift 9s ease-in-out infinite;
+    }
+
+    /* Borda em gradiente que acende no hover dos cards */
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      padding: 1px;
+      border-radius: inherit;
+      background: var(--brand-gradient);
+      background-size: 200% 200%;
+      opacity: 0;
+      transition: opacity 260ms ease;
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      mask-composite: exclude;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .card:hover::after {
+      opacity: 1;
+      animation: hueShift 6s ease-in-out infinite;
+    }
+
+    .card:hover {
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(91, 140, 255, 0.16);
+    }
+
+    .icon-box {
+      transition: transform 260ms ease, box-shadow 260ms ease, background 260ms ease;
+    }
+
+    .card:hover .icon-box,
+    .tool-card:hover .icon-box {
+      transform: translateY(-3px) scale(1.06);
+      background: rgba(91, 140, 255, 0.18);
+      box-shadow: var(--glow);
+    }
+
+    /* Tags acendendo */
+    .tag {
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, color 180ms ease;
+    }
+
+    .tag:hover {
+      transform: translateY(-2px);
+      border-color: rgba(91, 140, 255, 0.5);
+      background: rgba(91, 140, 255, 0.14);
+      color: #eaf1ff;
+    }
+
+    /* Faixa de contato com gradiente animado */
+    .contact-band {
+      background:
+        linear-gradient(135deg, rgba(91, 140, 255, 0.18), rgba(143, 107, 255, 0.14), rgba(255, 118, 95, 0.14)),
+        rgba(255, 255, 255, 0.045);
+      background-size: 220% 220%, auto;
+      animation: hueShift 12s ease-in-out infinite;
+    }
+
+    /* Reveal com curva mais suave + variações escalonadas */
+    .reveal {
+      transition: opacity 720ms cubic-bezier(0.16, 1, 0.3, 1), transform 720ms cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translateY(28px) scale(0.985);
+    }
+
+    .reveal.is-visible {
+      transform: translateY(0) scale(1);
+    }
+
+    .hero-copy.reveal { transform: translateX(-26px); }
+    .hero-copy.reveal.is-visible { transform: translateX(0); }
+
     @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
+      /* Desliga as animações decorativas de MOVIMENTO/loop... */
+      .aurora-blob,
+      .brand-mark::after,
+      .hero-panel,
+      .gradient-text,
+      .button-primary,
+      .button::before,
+      .eyebrow::before,
+      .metric strong,
+      .scroll-progress,
+      .contact-band,
+      .card:hover::after {
+        animation: none !important;
+      }
+
+      html {
         scroll-behavior: auto !important;
-        transition-duration: 0.01ms !important;
+      }
+
+      /* ...mas MANTÉM um fade de opacidade suave (sem deslocamento),
+         que é seguro para movimento reduzido. */
+      .reveal,
+      .hero-copy.reveal,
+      .soft-reveal {
+        transform: none !important;
+        transition: opacity 620ms ease !important;
+      }
+
+      .reveal.is-visible,
+      .hero-copy.reveal.is-visible,
+      .soft-reveal.in {
+        transform: none !important;
       }
     }
 
@@ -720,8 +1548,14 @@
       .hero-layout,
       .grid-3,
       .grid-2,
+      .ai-layout,
+      .about-layout,
       .contact-grid {
         grid-template-columns: 1fr;
+      }
+
+      .card-stack {
+        grid-template-rows: auto;
       }
 
       .hero {
@@ -763,6 +1597,14 @@
         font-size: 0.96rem;
       }
 
+      .lang-toggle span {
+        display: none;
+      }
+
+      .lang-toggle {
+        padding: 0 12px;
+      }
+
       .hero {
         padding-top: 96px;
       }
@@ -795,6 +1637,13 @@
   </style>
 </head>
 <body>
+  <div class="aurora" aria-hidden="true">
+    <span class="aurora-blob b1"></span>
+    <span class="aurora-blob b2"></span>
+    <span class="aurora-blob b3"></span>
+  </div>
+  <div class="scroll-progress" aria-hidden="true" data-progress></div>
+
   <header class="site-header" data-header>
     <nav class="container nav" aria-label="Navegação principal">
       <a class="brand" href="#inicio" aria-label="Rafael Régis, início">
@@ -802,17 +1651,27 @@
         <span>Rafael Régis</span>
       </a>
 
-      <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" data-menu-toggle>
-        <i class="fa-solid fa-bars"></i>
-      </button>
-
       <ul class="nav-links" data-nav-links>
-        <li><a href="#sobre">Sobre</a></li>
-        <li><a href="#experiencia">Experiência</a></li>
-        <li><a href="#projetos">Projetos</a></li>
-        <li><a href="#formacao">Formação</a></li>
-        <li><a href="#contato">Contato</a></li>
+        <li><a href="#sobre-mim" data-en="About me">Sobre mim</a></li>
+        <li><a href="#sobre" data-en="Skills">Competências</a></li>
+        <li><a href="#ia" data-en="AI">IA</a></li>
+        <li><a href="#experiencia" data-en="Experience">Experiência</a></li>
+        <li><a href="#projetos" data-en="Projects">Projetos</a></li>
+        <li><a href="#certificados" data-en="Certificates">Certificados</a></li>
+        <li><a href="#formacao" data-en="Education">Formação</a></li>
+        <li><a href="#contato" data-en="Contact">Contato</a></li>
       </ul>
+
+      <div class="nav-actions">
+        <button class="lang-toggle" type="button" data-lang-toggle aria-label="Switch to English">
+          <i class="fa-solid fa-globe" aria-hidden="true"></i>
+          <span data-lang-label>English</span>
+        </button>
+
+        <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" data-menu-toggle>
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
     </nav>
   </header>
 
@@ -820,14 +1679,14 @@
     <section class="hero" aria-labelledby="hero-title">
       <div class="container hero-layout">
         <div class="hero-copy reveal">
-          <span class="eyebrow">Página Responsiva</span>
-          <h2 id="hero-title">Desenvolvedor <span class="gradient-text">Full Stack</span> criando soluções digitais de verdade.</h2>
-          <p class="hero-text">
-            Atuo no front-end e back-end com React, React Native, Node.js e PostgreSQL, transformando necessidades de negócio em interfaces modernas, integrações confiáveis e produtos corporativos escaláveis.
+          <span class="eyebrow" data-en="Personal portfolio">Portfólio pessoal</span>
+          <h1 id="hero-title" data-en="<span class=&quot;gradient-text&quot;>Full Stack</span> Developer building digital products that actually ship.">Desenvolvedor <span class="gradient-text">Full Stack</span> criando soluções digitais de verdade.</h1>
+          <p class="hero-text" data-en="I work across front-end and back-end with React, React Native, Node.js and PostgreSQL, turning business needs into modern interfaces, reliable integrations and scalable corporate products — with Claude Code built into my daily development workflow.">
+            Atuo no front-end e back-end com React, React Native, Node.js e PostgreSQL, transformando necessidades de negócio em interfaces modernas, integrações confiáveis e produtos corporativos escaláveis — com Claude Code integrado ao meu fluxo diário de desenvolvimento.
           </p>
           <div class="hero-actions">
-            <a class="button button-primary" href="#contato"><i class="fa-solid fa-paper-plane"></i> Fale comigo</a>
-            <a class="button button-secondary" href="Curriculo_Rafael_Regis.docx" download><i class="fa-solid fa-file-arrow-down"></i> Baixar currículo</a>
+            <a class="button button-primary" href="#contato" data-en="<i class=&quot;fa-solid fa-paper-plane&quot;></i> Get in touch"><i class="fa-solid fa-paper-plane"></i> Fale comigo</a>
+            <a class="button button-secondary" href="#sobre-mim" data-en="<i class=&quot;fa-solid fa-user&quot;></i> About me"><i class="fa-solid fa-user"></i> Sobre mim</a>
             <a class="button button-secondary" href="https://github.com/Regis-Rafael" target="_blank" rel="noreferrer"><i class="fa-brands fa-github"></i> GitHub</a>
           </div>
         </div>
@@ -839,28 +1698,106 @@
           </div>
           <div class="metrics">
             <div class="metric">
-              <strong>2024</strong>
-              <span>início em projetos corporativos</span>
+              <strong data-en="Degree">Superior</strong>
+              <span data-en="Technologist, SENAC, 2025">Tecnólogo pelo SENAC, 2025</span>
             </div>
             <div class="metric">
-              <strong>B2</strong>
-              <span>inglês operacional avançado</span>
+              <strong>13</strong>
+              <span data-en="verified certificates">certificados comprovados</span>
             </div>
             <div class="metric">
-              <strong>Full</strong>
-              <span>front-end, back-end e integrações</span>
+              <strong>Full-Stack</strong>
+              <span data-en="front-end, back-end and integrations">front-end, back-end e integrações</span>
             </div>
             <div class="metric">
-              <strong>ADS</strong>
-              <span>SENAC concluído em 2025</span>
+              <strong data-en="English B2">Inglês B2</strong>
+              <span data-en="Reading, speaking, listening and writing">Leitura, Fala, Compreensão e Escrita</span>
             </div>
           </div>
           <ul class="status-list">
-            <li><i class="fa-solid fa-check"></i><span>Dashboard RFM com React, Node.js e PostgreSQL.</span></li>
-            <li><i class="fa-solid fa-check"></i><span>Aplicações web e mobile com foco em performance.</span></li>
-            <li><i class="fa-solid fa-check"></i><span>Suporte, documentação, requisitos e evolução de produto.</span></li>
+            <li><i class="fa-solid fa-check"></i><span data-en="RFM dashboard with React, Node.js and PostgreSQL.">Dashboard RFM com React, Node.js e PostgreSQL.</span></li>
+            <li><i class="fa-solid fa-check"></i><span data-en="Web and mobile applications focused on performance.">Aplicações web e mobile com foco em performance.</span></li>
+            <li><i class="fa-solid fa-check"></i><span data-en="AI-assisted development with coding agents.">Desenvolvimento assistido por IA com agentes de código.</span></li>
+            <li><i class="fa-solid fa-check"></i><span data-en="Support, documentation, requirements and product evolution.">Suporte, documentação, requisitos e evolução de produto.</span></li>
           </ul>
         </aside>
+      </div>
+    </section>
+
+    <section id="sobre-mim">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <p class="section-kicker" data-en="About me">Sobre mim</p>
+            <h2 data-en="From Ceará to the world — curious, and driven by solving problems.">Do Ceará para o mundo, curioso e movido a resolver problemas.</h2>
+          </div>
+          <p class="section-copy" data-en="A bit about who is behind the code: where I come from, what drives me and how I got into development.">
+            Um pouco de quem está por trás do código: de onde venho, o que me move e como cheguei ao desenvolvimento.
+          </p>
+        </div>
+
+        <div class="about-layout">
+          <article class="card reveal about-copy">
+            <p class="about-lead" data-en="My name is Rafael Régis Cavalcante Ramos Costa. I'm <span data-age></span> years old and I was born in Fortaleza, Ceará, where I still live and work.">
+              Me chamo Rafael Régis Cavalcante Ramos Costa, tenho <span data-age></span> anos e nasci em Fortaleza, no Ceará, onde moro e trabalho até hoje.
+            </p>
+            <p data-en="I started in tech from the ground up: I took the Computer Networks technical course at SENAI and then the Systems Analysis and Development degree at SENAC. That's where I found out what I really enjoyed was building software — understanding the problem, designing the solution and watching it work in the hands of the people who use it.">
+              Comecei na tecnologia pela base: fiz o Técnico em Redes de Computadores no SENAI e, na sequência, o curso superior de Análise e Desenvolvimento de Sistemas no SENAC. Foi ali que descobri que gostava mesmo era de construir software — entender o problema, desenhar a solução e ver ela funcionando na mão de quem usa.
+            </p>
+            <p data-en="I entered the job market as an apprentice in the administrative and IT area, supporting users, and gradually moved into development — up to the point of proposing my first Full Stack project in a corporate environment and, more recently, joining a startup. I like working close to the business, turning real needs into product, and I'm not afraid of touching what nobody else wants to touch.">
+              Entrei no mercado como aprendiz na área administrativa e de TI, dando suporte a usuários, e fui migrando para o desenvolvimento até sugerir o meu primeiro projeto Full Stack em ambiente corporativo e ser aceito, mais recentemente, em uma startup. Gosto de trabalhar perto do negócio, transformar necessidade real em produto e não ter medo de mexer no que ninguém quer mexer.
+            </p>
+            <p data-en="I work with agile methods day to day: breaking delivery into short cycles, tracking tasks on a Kanban board and using Scrum ceremonies to keep the team and the business aligned on what goes into each sprint. That's what led me to get certified in Agile Project Management with Scrum, Kanban and Scaled Agile — organising the flow of work helps me as much as writing the code itself.">
+              Trabalho no dia a dia com métodos ágeis: quebro a entrega em ciclos curtos, acompanho as tarefas em quadro Kanban e uso as cerimônias do Scrum para manter time e negócio alinhados sobre o que entra em cada sprint. Foi o que me levou a tirar a certificação em Gestão Ágil de Projetos com Scrum, Kanban e Ágil Escalado — organizar o fluxo de trabalho me ajuda tanto quanto escrever o código.
+            </p>
+            <p data-en="I'm driven by continuous learning: I study constantly, take certifications and bring new tools into my routine — like the AI agents that are now part of my coding workflow. Away from the screen, I'm into technology, games and keeping up with what's emerging in the field.">
+              Sou movido por aprendizado contínuo: estudo constantemente, tiro certificações e incorporo novas ferramentas ao meu dia a dia — como os agentes de IA que hoje fazem parte do meu fluxo de código. Fora da tela, gosto de tecnologia, games e de acompanhar o que está surgindo na área.
+            </p>
+            <p class="signoff">— Rafael Régis</p>
+          </article>
+
+          <aside class="card reveal">
+            <div class="fact-list">
+              <div class="fact">
+                <span class="fact-ic"><i class="fa-solid fa-cake-candles"></i></span>
+                <div><strong data-en="Date of birth">Nascimento</strong><span data-en="October 14, 2004 · <span data-age></span> years old">14 de outubro de 2004 · <span data-age></span> anos</span></div>
+              </div>
+              <div class="fact">
+                <span class="fact-ic"><i class="fa-solid fa-location-dot"></i></span>
+                <div><strong data-en="Location">Localização</strong><span data-en="Fortaleza, Ceará — Brazil">Fortaleza, Ceará — Brasil</span></div>
+              </div>
+              <div class="fact">
+                <span class="fact-ic"><i class="fa-solid fa-flag"></i></span>
+                <div><strong data-en="Nationality">Nacionalidade</strong><span data-en="Brazilian">Brasileiro</span></div>
+              </div>
+              <div class="fact">
+                <span class="fact-ic"><i class="fa-solid fa-briefcase"></i></span>
+                <div><strong data-en="Role">Atuação</strong><span data-en="Full Stack Developer">Desenvolvedor Full Stack</span></div>
+              </div>
+              <div class="fact">
+                <span class="fact-ic"><i class="fa-solid fa-language"></i></span>
+                <div><strong data-en="Languages">Idiomas</strong><span data-en="Native Portuguese · English B2">Português nativo · Inglês B2</span></div>
+              </div>
+              <div class="fact">
+                <span class="fact-ic"><i class="fa-solid fa-location-arrow"></i></span>
+                <div><strong data-en="Availability">Disponibilidade</strong><span data-en="On-site in Fortaleza, remote and hybrid">Presencial em Fortaleza, remoto e híbrido</span></div>
+              </div>
+              <div class="fact">
+                <span class="fact-ic"><i class="fa-solid fa-car"></i></span>
+                <div><strong data-en="Driving licence">Carteira de motorista</strong><span data-en="Category AB, with my own vehicle">AB, com veículo próprio</span></div>
+              </div>
+            </div>
+            <div class="interests" aria-label="Interesses">
+              <span class="tag" data-en="Web development">Desenvolvimento web</span>
+              <span class="tag">Mobile</span>
+              <span class="tag" data-en="Applied AI">IA aplicada</span>
+              <span class="tag" data-en="Agile methods">Métodos ágeis</span>
+              <span class="tag" data-en="Automation">Automação</span>
+              <span class="tag" data-en="Data analysis">Análise de dados</span>
+              <span class="tag" data-en="Technology">Tecnologia</span>
+            </div>
+          </aside>
+        </div>
       </div>
     </section>
 
@@ -868,10 +1805,10 @@
       <div class="container">
         <div class="section-head reveal">
           <div>
-            <p class="section-kicker">Sobre</p>
-            <h2>Base técnica ampla, visão de produto e mão na massa.</h2>
+            <p class="section-kicker" data-en="Skills">Competências</p>
+            <h2 data-en="Broad technical foundation, product sense and hands-on delivery.">Base técnica ampla, visão de produto e mão na massa.</h2>
           </div>
-          <p class="section-copy">
+          <p class="section-copy" data-en="I build web and mobile applications, integrate APIs, structure business logic and improve digital routines in corporate environments. I like combining clean code, usability and practical delivery.">
             Desenvolvo aplicações web e mobile, integro APIs, estruturo lógica de negócio e melhoro rotinas digitais em ambientes corporativos. Gosto de unir código limpo, usabilidade e entrega prática.
           </p>
         </div>
@@ -880,7 +1817,7 @@
           <article class="card reveal">
             <div class="icon-box"><i class="fa-solid fa-display"></i></div>
             <h3>Front-end</h3>
-            <p>Interfaces responsivas, acessíveis e performáticas para web e mobile, com atenção ao fluxo real do usuário.</p>
+            <p data-en="Responsive, accessible and performant interfaces for web and mobile, with attention to the real user flow.">Interfaces responsivas, acessíveis e performáticas para web e mobile, com atenção ao fluxo real do usuário.</p>
             <div class="tags">
               <span class="tag">React</span>
               <span class="tag">React Native</span>
@@ -893,28 +1830,126 @@
           <article class="card reveal">
             <div class="icon-box"><i class="fa-solid fa-server"></i></div>
             <h3>Back-end</h3>
-            <p>APIs, integrações de sistemas, tratamento de dados e regras de negócio com foco em manutenção e escala.</p>
+            <p data-en="APIs, system integrations, data processing and business rules focused on maintainability and scale.">APIs, integrações de sistemas, tratamento de dados e regras de negócio com foco em manutenção e escala.</p>
             <div class="tags">
               <span class="tag">Node.js</span>
               <span class="tag">Python</span>
               <span class="tag">PostgreSQL</span>
               <span class="tag">REST APIs</span>
               <span class="tag">Java</span>
+              <span class="tag">PHP</span>
+              <span class="tag">Laravel</span>
             </div>
           </article>
 
-          <article class="card reveal">
-            <div class="icon-box"><i class="fa-solid fa-diagram-project"></i></div>
-            <h3>Produto & TI</h3>
-            <p>Levantamento de requisitos, documentação, testes funcionais, automações e suporte técnico próximo do negócio.</p>
-            <div class="tags">
-              <span class="tag">Figma</span>
-              <span class="tag">Kommo CRM</span>
-              <span class="tag">ERP</span>
-              <span class="tag">UX/UI</span>
-              <span class="tag">Suporte</span>
+          <div class="card-stack">
+            <article class="card card-compact reveal">
+              <div class="icon-box"><i class="fa-solid fa-pen-ruler"></i></div>
+              <h3 data-en="UX & Interface">UX & Interface</h3>
+              <p data-en="User flow thought through before the code: prototyping, visual hierarchy and accessibility all the way to the final interface.">Fluxo de uso pensado antes do código: prototipação, hierarquia visual e acessibilidade até a interface final.</p>
+              <div class="tags">
+                <span class="tag">Figma</span>
+                <span class="tag" data-en="Prototyping">Prototipação</span>
+                <span class="tag" data-en="Accessibility">Acessibilidade</span>
+                <span class="tag">Design System</span>
+              </div>
+            </article>
+
+            <article class="card card-compact reveal">
+              <div class="icon-box"><i class="fa-solid fa-infinity"></i></div>
+              <h3>DevOps</h3>
+              <p data-en="From build to release: pipelines, containers, production environment and the database that keeps what's live running.">Do build à publicação: pipelines, containers, ambiente de produção e o banco que sustenta o que já está no ar.</p>
+              <div class="tags">
+                <span class="tag">Docker</span>
+                <span class="tag">GitHub Actions</span>
+                <span class="tag">Nginx</span>
+                <span class="tag">VPS Linux</span>
+                <span class="tag">EAS Build</span>
+                <span class="tag">Backups</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="ia">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <p class="section-kicker" data-en="Artificial Intelligence">Inteligência Artificial</p>
+            <h2 data-en="AI as a complementary tool.">IA como ferramenta complementar.</h2>
+          </div>
+          <p class="section-copy" data-en="I use coding agents as a real part of the workflow: reading legacy codebases, guided refactoring, tests, documentation and automation. The technical decisions stay mine — AI speeds up the execution.">
+            Uso agentes de código como parte real do fluxo: leitura de bases legadas, refatoração guiada, testes, documentação e automações. A decisão técnica continua sendo minha — a IA acelera a execução.
+          </p>
+        </div>
+
+        <div class="ai-layout">
+          <div class="grid">
+            <article class="card tool-card reveal">
+              <div class="tool-head">
+                <div class="icon-box"><i class="fa-solid fa-terminal"></i></div>
+                <div>
+                  <h3>Claude Code</h3>
+                  <span data-en="Coding agent in the terminal and in the IDE">Agente de código no terminal e na IDE</span>
+                </div>
+              </div>
+              <p data-en="I work with Claude Code on real codebases: exploring repositories I don't know, implementing features end to end and reviewing every change before the commit.">Trabalho com o Claude Code em bases reais: exploro repositórios que não conheço, implemento funcionalidades ponta a ponta e reviso alterações antes do commit.</p>
+              <ul class="check-list">
+                <li><i class="fa-solid fa-circle"></i><span data-en="Exploring and mapping legacy code before changing it.">Exploração e mapeamento de código legado antes de alterar.</span></li>
+                <li><i class="fa-solid fa-circle"></i><span data-en="Guided implementation with human review of every diff.">Implementação guiada com revisão humana de cada diff.</span></li>
+                <li><i class="fa-solid fa-circle"></i><span data-en="Tests, bug fixing and incremental refactoring.">Testes, correção de bugs e refatoração incremental.</span></li>
+                <li><i class="fa-solid fa-circle"></i><span data-en="Technical documentation and standardised commit messages.">Documentação técnica e mensagens de commit padronizadas.</span></li>
+              </ul>
+              <div class="tags">
+                <span class="tag">CLI</span>
+                <span class="tag" data-en="VS Code extension">Extensão VS Code</span>
+                <span class="tag" data-en="Subagents">Subagentes</span>
+                <span class="tag">MCP</span>
+                <span class="tag">Code review</span>
+              </div>
+            </article>
+
+            <article class="card tool-card reveal">
+              <div class="tool-head">
+                <div class="icon-box"><i class="fa-solid fa-shield-halved"></i></div>
+                <div>
+                  <h3 data-en="How I work with AI">Como eu trabalho com IA</h3>
+                  <span data-en="Judgement before speed">Critério antes de velocidade</span>
+                </div>
+              </div>
+              <ul class="check-list">
+                <li><i class="fa-solid fa-circle"></i><span data-en="No code reaches production without me reading and testing it.">Nenhum código entra em produção sem leitura e teste meus.</span></li>
+                <li><i class="fa-solid fa-circle"></i><span data-en="Project context documented so the output stays consistent.">Contexto do projeto documentado para gerar saída consistente.</span></li>
+                <li><i class="fa-solid fa-circle"></i><span data-en="Tasks sliced into small, verifiable scopes.">Tarefas fatiadas em escopos pequenos e verificáveis.</span></li>
+                <li><i class="fa-solid fa-circle"></i><span data-en="Care with sensitive data and credentials in any prompt.">Cuidado com dados sensíveis e credenciais em qualquer prompt.</span></li>
+                <li><i class="fa-solid fa-circle"></i><span data-en="Architecture decisions and the final call are always mine.">Decisão de arquitetura e palavra final são sempre minhas.</span></li>
+              </ul>
+            </article>
+          </div>
+
+          <aside class="terminal reveal" aria-label="Exemplo de uso do Claude Code">
+            <div class="panel-top">
+              <div class="panel-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+              <span class="panel-title">~/dashboard-rfm</span>
             </div>
-          </article>
+            <div class="terminal-body">
+              <p><span class="t-prompt">$</span> <span class="t-cmd">claude</span></p>
+              <p data-en="<span class=&quot;t-muted&quot;>&gt;</span> map the RFM segmentation query
+              <span class=&quot;t-muted&quot;>  </span>and cover the edge cases with tests"><span class="t-muted">&gt;</span> mapeie a query de segmentação RFM
+              <span class="t-muted">  </span>e cubra os casos de borda com testes</p>
+              <p><span class="t-muted">·</span> <span class="t-hl">Read</span>    src/services/rfm.js</p>
+              <p><span class="t-muted">·</span> <span class="t-hl">Grep</span>    "recencia|frequencia|valor"</p>
+              <p><span class="t-muted">·</span> <span class="t-hl">Edit</span>    src/services/rfm.js</p>
+              <p><span class="t-muted">·</span> <span class="t-hl">Write</span>   tests/rfm.spec.js</p>
+              <p><span class="t-muted">·</span> <span class="t-hl">Bash</span>    npm test</p>
+              <p data-en="<span class=&quot;t-ok&quot;>✓</span> <span class=&quot;t-muted&quot;>12 tests passing</span>"><span class="t-ok">✓</span> <span class="t-muted">12 testes passando</span></p>
+              <p data-en="<span class=&quot;t-muted&quot;>&gt;</span> review the diff before the commit"><span class="t-muted">&gt;</span> revise o diff antes do commit</p>
+              <p data-en="<span class=&quot;t-ok&quot;>✓</span> <span class=&quot;t-muted&quot;>diff reviewed and approved by me</span>"><span class="t-ok">✓</span> <span class="t-muted">diff revisado e aprovado por mim</span></p>
+              <p><span class="t-prompt">$</span> <span class="t-cmd">git commit</span> <span class="t-muted">-m "feat: segmentação RFM"</span></p>
+            </div>
+          </aside>
         </div>
       </div>
     </section>
@@ -923,10 +1958,10 @@
       <div class="container">
         <div class="section-head reveal">
           <div>
-            <p class="section-kicker">Experiência</p>
-            <h2>Projetos reais em ambientes corporativos e produto digital.</h2>
+            <p class="section-kicker" data-en="Experience">Experiência</p>
+            <h2 data-en="Real projects in corporate environments and digital product.">Projetos reais em ambientes corporativos e produto digital.</h2>
           </div>
-          <p class="section-copy">
+          <p class="section-copy" data-en="Hands-on experience developing features, automations, dashboards and integrations that connect technology to day-to-day operations.">
             Experiência prática no desenvolvimento de funcionalidades, automações, dashboards e integrações que conectam tecnologia com operação.
           </p>
         </div>
@@ -934,50 +1969,51 @@
         <div class="experience">
           <article class="job reveal">
             <div class="job-meta">
-              <strong>Dez/2025 - atual</strong>
+              <strong data-en="Dec/2025 - present">Dez/2025 - atual</strong>
               HubVitta
             </div>
             <div>
-              <p class="job-company">Startup de benefícios de saúde e bem-estar B2B e B2C</p>
-              <h3>Desenvolvedor Full Stack</h3>
+              <p class="job-company" data-en="B2B and B2C health and wellbeing benefits startup">Startup de benefícios de saúde e bem-estar B2B e B2C</p>
+              <h3 data-en="Full Stack Developer">Desenvolvedor Full Stack</h3>
               <ul>
-                <li>Desenvolvimento de funcionalidades front-end para web e mobile.</li>
-                <li>Atuação no back-end, integrações de sistemas e evolução contínua do produto.</li>
-                <li>Construção de soluções do zero com foco em performance, escalabilidade e experiência do usuário.</li>
+                <li data-en="Front-end feature development for web and mobile.">Desenvolvimento de funcionalidades front-end para web e mobile.</li>
+                <li data-en="Back-end work, system integrations and continuous product evolution.">Atuação no back-end, integrações de sistemas e evolução contínua do produto.</li>
+                <li data-en="Building solutions from scratch with a focus on performance, scalability and user experience.">Construção de soluções do zero com foco em performance, escalabilidade e experiência do usuário.</li>
               </ul>
             </div>
           </article>
 
           <article class="job reveal">
             <div class="job-meta">
-              <strong>Jul/2024 - atual</strong>
+              <strong data-en="Jul/2024 - present">Jul/2024 - atual</strong>
               Rejuntamix
             </div>
             <div>
-              <p class="job-company">Indústria de produção e comercialização de argamassas</p>
-              <h3>Desenvolvedor Full Stack e Assistente de TI</h3>
+              <p class="job-company" data-en="Manufacturer and distributor of construction mortars">Indústria de produção e comercialização de argamassas</p>
+              <h3 data-en="Full Stack Developer and IT Assistant">Desenvolvedor Full Stack e Assistente de TI</h3>
               <ul>
-                <li>Desenvolvimento Full Stack do dashboard RFM com React, Node.js e PostgreSQL.</li>
-                <li>Construção de interfaces, integração com APIs, tratamento de dados e lógica de negócio para análise de clientes e segmentação.</li>
-                <li>Suporte ao ERP industrial Gerin/Infordados, automações internas e integração entre estoque, vendas e faturamento.</li>
-                <li>Manutenção do site institucional, melhorias de performance, responsividade e segurança.</li>
-                <li>Criação de chatbot no CRM Kommo para reduzir demandas repetitivas e melhorar o atendimento.</li>
+                <li data-en="Full Stack development of the RFM dashboard with React, Node.js and PostgreSQL.">Desenvolvimento Full Stack do dashboard RFM com React, Node.js e PostgreSQL.</li>
+                <li data-en="Building interfaces, API integration, data processing and business logic for customer analysis and segmentation.">Construção de interfaces, integração com APIs, tratamento de dados e lógica de negócio para análise de clientes e segmentação.</li>
+                <li data-en="Containerisation and deployment on a Linux VPS with Nginx, build pipeline on GitHub Actions and PostgreSQL backup routines.">Containerização e deploy em VPS Linux com Nginx, pipeline de build no GitHub Actions e rotina de backup do PostgreSQL.</li>
+                <li data-en="Support for the Gerin/Infordados industrial ERP, internal automations and integration between stock, sales and invoicing.">Suporte ao ERP industrial Gerin/Infordados, automações internas e integração entre estoque, vendas e faturamento.</li>
+                <li data-en="Maintenance of the company website, with performance, responsiveness and security improvements.">Manutenção do site institucional, melhorias de performance, responsividade e segurança.</li>
+                <li data-en="Built a chatbot on the Kommo CRM to cut repetitive requests and improve customer service.">Criação de chatbot no CRM Kommo para reduzir demandas repetitivas e melhorar o atendimento.</li>
               </ul>
             </div>
           </article>
 
           <article class="job reveal">
             <div class="job-meta">
-              <strong>Fev/2023 - Jun/2024</strong>
+              <strong data-en="Feb/2023 - Jun/2024">Fev/2023 - Jun/2024</strong>
               Rejuntamix
             </div>
             <div>
-              <p class="job-company">Área administrativa e TI</p>
-              <h3>Aprendiz | Assistente Administrativo</h3>
+              <p class="job-company" data-en="Administrative and IT area">Área administrativa e TI</p>
+              <h3 data-en="Apprentice | Administrative Assistant">Aprendiz | Assistente Administrativo</h3>
               <ul>
-                <li>Suporte técnico de primeiro nível a usuários internos.</li>
-                <li>Instalação, configuração e manutenção de computadores, sistemas e periféricos.</li>
-                <li>Testes funcionais, acompanhamento de desempenho e apoio em rotinas administrativas de TI.</li>
+                <li data-en="First-level technical support for internal users.">Suporte técnico de primeiro nível a usuários internos.</li>
+                <li data-en="Installation, configuration and maintenance of computers, systems and peripherals.">Instalação, configuração e manutenção de computadores, sistemas e periféricos.</li>
+                <li data-en="Functional testing, performance monitoring and support for IT administrative routines.">Testes funcionais, acompanhamento de desempenho e apoio em rotinas administrativas de TI.</li>
               </ul>
             </div>
           </article>
@@ -989,24 +2025,41 @@
       <div class="container">
         <div class="section-head reveal">
           <div>
-            <p class="section-kicker">Projetos</p>
-            <h2>Aplicações com propósito, dados e experiência de uso.</h2>
+            <p class="section-kicker" data-en="Projects">Projetos</p>
+            <h2 data-en="Applications with purpose, data and real user experience.">Aplicações com propósito, dados e experiência de uso.</h2>
           </div>
-          <p class="section-copy">
+          <p class="section-copy" data-en="A selection of professional and academic projects showing how interface, business rules and integration came together over time.">
             Uma seleção de projetos profissionais e acadêmicos que mostram a evolução entre interface, regra de negócio e integração.
           </p>
         </div>
 
         <div class="grid grid-2">
           <article class="card project-card reveal">
+            <button
+              class="project-shot"
+              type="button"
+              data-shot="projetos/dashboard-rfm.webp"
+              data-caption="Dashboard RFM — tela de Carteira de Clientes. Valores financeiros mascarados."
+              data-caption-en="RFM Dashboard — Customer Portfolio screen. Financial figures masked."
+              aria-label="Ampliar print do Dashboard RFM"
+            >
+              <img
+                src="projetos/dashboard-rfm.webp"
+                loading="lazy"
+                decoding="async"
+                alt="Tela Carteira de Clientes do Dashboard RFM: barra de filtros combinados, linha de indicadores, grade de segmentação 5x5 por recência e frequência e gráfico de distribuição dos clientes em nove segmentos."
+              />
+              <span class="shot-hint" data-en="<i class=&quot;fa-solid fa-expand&quot;></i> View full size"><i class="fa-solid fa-expand"></i> Ver em tamanho real</span>
+            </button>
             <div class="project-top">
               <div>
                 <div class="icon-box"><i class="fa-solid fa-chart-line"></i></div>
-                <h3>Dashboard RFM Rejuntamix</h3>
+                <h3 data-en="Rejuntamix RFM Dashboard">Dashboard RFM Rejuntamix</h3>
               </div>
               <a class="project-link" href="#contato" aria-label="Conversar sobre o Dashboard RFM"><i class="fa-solid fa-arrow-right"></i></a>
             </div>
-            <p>Dashboard corporativo para análise de clientes, recorrência e segmentação, com front-end em React, API em Node.js e banco PostgreSQL.</p>
+            <p data-en="Corporate dashboard for customer, recency and segmentation analysis, with a React front-end, Node.js API and PostgreSQL database. Combined filters by period, product, region, channel and sales rep, with a clickable 5x5 RF grid and automatic classification into nine segments.">Dashboard corporativo para análise de clientes, recorrência e segmentação, com front-end em React, API em Node.js e banco PostgreSQL. Filtros combinados por período, produto, região, canal e vendedor, com grade RF 5x5 clicável e classificação automática em nove segmentos.</p>
+            <p class="shot-note" data-en="<i class=&quot;fa-solid fa-lock&quot;></i> Real screenshot, with financial figures masked."><i class="fa-solid fa-lock"></i> Print de tela real, com os valores financeiros mascarados.</p>
             <div class="tags">
               <span class="tag">React</span>
               <span class="tag">Node.js</span>
@@ -1023,12 +2076,12 @@
               </div>
               <a class="project-link" href="#contato" aria-label="Conversar sobre o HubVitta"><i class="fa-solid fa-arrow-right"></i></a>
             </div>
-            <p>Participação na evolução de produto web e mobile para benefícios de saúde e bem-estar, com atuação em front-end, back-end e integrações.</p>
+            <p data-en="Contributing to the evolution of a web and mobile product for health and wellbeing benefits, working across front-end, back-end and integrations.">Participação na evolução de produto web e mobile para benefícios de saúde e bem-estar, com atuação em front-end, back-end e integrações.</p>
             <div class="tags">
               <span class="tag">Full Stack</span>
               <span class="tag">Mobile</span>
-              <span class="tag">Integrações</span>
-              <span class="tag">Produto</span>
+              <span class="tag" data-en="Integrations">Integrações</span>
+              <span class="tag" data-en="Product">Produto</span>
             </div>
           </article>
 
@@ -1036,11 +2089,11 @@
             <div class="project-top">
               <div>
                 <div class="icon-box"><i class="fa-solid fa-book-open-reader"></i></div>
-                <h3>SAL - Rede Social Literária</h3>
+                <h3 data-en="SAL — Literary Social Network">SAL — Rede Social Literária</h3>
               </div>
               <a class="project-link" href="#contato" aria-label="Conversar sobre o SAL"><i class="fa-solid fa-arrow-right"></i></a>
             </div>
-            <p>Projeto acadêmico de plataforma social para estudantes e leitores, com resenhas, clubes de leitura e descoberta de livros por preferências.</p>
+            <p data-en="Academic project: a social platform for students and readers, with reviews, book clubs and book discovery based on personal preferences.">Projeto acadêmico de plataforma social para estudantes e leitores, com resenhas, clubes de leitura e descoberta de livros por preferências.</p>
             <div class="tags">
               <span class="tag">React Native</span>
               <span class="tag">Python</span>
@@ -1053,11 +2106,11 @@
             <div class="project-top">
               <div>
                 <div class="icon-box"><i class="fa-solid fa-cart-shopping"></i></div>
-                <h3>LickShop - E-commerce</h3>
+                <h3 data-en="LickShop — E-commerce">LickShop — E-commerce</h3>
               </div>
               <a class="project-link" href="#contato" aria-label="Conversar sobre o LickShop"><i class="fa-solid fa-arrow-right"></i></a>
             </div>
-            <p>Projeto acadêmico de e-commerce de produtos adultos, com foco em usabilidade, performance e experiência do usuário.</p>
+            <p data-en="Academic e-commerce project for an adult products store, focused on usability, performance and user experience.">Projeto acadêmico de e-commerce de produtos adultos, com foco em usabilidade, performance e experiência do usuário.</p>
             <div class="tags">
               <span class="tag">Vue.js</span>
               <span class="tag">Java</span>
@@ -1069,14 +2122,196 @@
       </div>
     </section>
 
+    <section id="certificados">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <p class="section-kicker" data-en="Certificates">Certificados</p>
+            <h2 data-en="13 issued and verifiable certifications.">13 certificações emitidas e verificáveis.</h2>
+          </div>
+          <p class="section-copy" data-en="Higher education, technical training and professional development courses in software, agile management and languages. Every document opens as a PDF.">
+            Formação superior, técnica e cursos de aperfeiçoamento em desenvolvimento, gestão ágil e idiomas. Todos os documentos podem ser abertos em PDF.
+          </p>
+        </div>
+
+        <div class="filters reveal" role="group" aria-label="Filtrar certificados">
+          <button class="filter is-active" type="button" data-filter="todos" aria-pressed="true" data-en="All">Todos</button>
+          <button class="filter" type="button" data-filter="formacao" aria-pressed="false" data-en="Education">Formação</button>
+          <button class="filter" type="button" data-filter="dev" aria-pressed="false" data-en="Development">Desenvolvimento</button>
+          <button class="filter" type="button" data-filter="gestao" aria-pressed="false" data-en="Management & Agile">Gestão & Ágil</button>
+          <button class="filter" type="button" data-filter="outros" aria-pressed="false" data-en="Languages & Events">Idiomas & Eventos</button>
+        </div>
+
+        <div class="cert-grid" data-cert-grid>
+          <article class="card cert reveal" data-cat="formacao">
+            <div class="cert-top">
+              <span class="cert-issuer"><i class="fa-solid fa-graduation-cap"></i> SENAC</span>
+              <span class="cert-hours" data-en="Degree">Superior</span>
+            </div>
+            <h3 data-en="Technologist Degree in Systems Analysis and Development">Tecnólogo em Análise e Desenvolvimento de Sistemas</h3>
+            <p class="cert-meta">
+              <span data-en="Completed Jul/2025">Conclusão jul/2025</span>
+              <a class="cert-open" href="certificados/Representa%C3%A7%C3%A3o%20Visual%20-%20Rafael%20Regis.pdf" target="_blank" rel="noreferrer"><span data-en="View diploma">Ver diploma</span> <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </p>
+          </article>
+
+          <article class="card cert reveal" data-cat="formacao">
+            <div class="cert-top">
+              <span class="cert-issuer"><i class="fa-solid fa-network-wired"></i> SENAI</span>
+              <span class="cert-hours">1400h</span>
+            </div>
+            <h3 data-en="Computer Networks Technician">Técnico em Redes de Computadores</h3>
+            <p class="cert-meta">
+              <span data-en="Completed Nov/2022">Conclusão nov/2022</span>
+              <a class="cert-open" href="certificados/Diploma_Redes.pdf" target="_blank" rel="noreferrer"><span data-en="View diploma">Ver diploma</span> <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </p>
+          </article>
+
+          <article class="card cert reveal" data-cat="dev">
+            <div class="cert-top">
+              <span class="cert-issuer"><i class="fa-solid fa-certificate"></i> Meta · Coursera</span>
+              <span class="cert-hours">Online</span>
+            </div>
+            <h3>Introduction to Front-End Development</h3>
+            <p class="cert-meta">
+              <span data-en="Dec/2025">Dez/2025</span>
+              <a class="cert-open" href="certificados/Coursera%20G7VE78CS4JCQ.pdf" target="_blank" rel="noreferrer"><span data-en="View certificate">Ver certificado</span> <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </p>
+          </article>
+
+          <article class="card cert reveal" data-cat="dev">
+            <div class="cert-top">
+              <span class="cert-issuer"><i class="fa-brands fa-laravel"></i> Udemy</span>
+              <span class="cert-hours">46h</span>
+            </div>
+            <h3 data-en="Laravel: Building a Professional Application with Laravel Basics">Laravel: Criar Aplicação Profissional com Laravel Básico</h3>
+            <p class="cert-meta">
+              <span>Jul/2026</span>
+              <a class="cert-open" href="certificados/Certificado-Laravel-Udemy.pdf" target="_blank" rel="noreferrer"><span data-en="View certificate">Ver certificado</span> <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </p>
+          </article>
+
+          <article class="card cert reveal" data-cat="gestao">
+            <div class="cert-top">
+              <span class="cert-issuer"><i class="fa-solid fa-list-check"></i> Udemy</span>
+              <span class="cert-hours">27h</span>
+            </div>
+            <h3 data-en="Agile Project Management with Scrum, Kanban & Scaled Agile">Gestão Ágil de Projetos com Scrum, Kanban & Ágil Escalado</h3>
+            <p class="cert-meta">
+              <span>Jul/2026</span>
+              <a class="cert-open" href="certificados/Certificado-Projetos-Ageis-Udemy.pdf" target="_blank" rel="noreferrer"><span data-en="View certificate">Ver certificado</span> <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </p>
+          </article>
+
+          <article class="card cert reveal" data-cat="dev">
+            <div class="cert-top">
+              <span class="cert-issuer"><i class="fa-brands fa-js"></i> Curso em Vídeo</span>
+              <span class="cert-hours">40h</span>
+            </div>
+            <h3>JavaScript</h3>
+            <p class="cert-meta">
+              <span data-en="May/2025">Mai/2025</span>
+              <a class="cert-open" href="certificados/Rafael-Regis-Cavalcante-Ramos-Costa-Javascript-40-Horas-Certificado-Curso-em-Video.pdf" target="_blank" rel="noreferrer"><span data-en="View certificate">Ver certificado</span> <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </p>
+          </article>
+
+          <article class="card cert reveal" data-cat="dev">
+            <div class="cert-top">
+              <span class="cert-issuer"><i class="fa-solid fa-code-branch"></i> Curso em Vídeo</span>
+              <span class="cert-hours">40h</span>
+            </div>
+            <h3 data-en="Algorithms and Programming Logic">Algoritmos e Lógica de Programação</h3>
+            <p class="cert-meta">
+              <span>Jul/2026</span>
+              <a class="cert-open" href="certificados/Rafael-Regis-Cavalcante-Ramos-Costa-Algoritmos-e-Logica-de-Programacao-40-Horas-Certificado-Curso-em-Video.pdf" target="_blank" rel="noreferrer"><span data-en="View certificate">Ver certificado</span> <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </p>
+          </article>
+
+          <article class="card cert reveal" data-cat="dev">
+            <div class="cert-top">
+              <span class="cert-issuer"><i class="fa-brands fa-php"></i> Curso em Vídeo</span>
+              <span class="cert-hours">40h</span>
+            </div>
+            <h3 data-en="PHP Basics">PHP Básico</h3>
+            <p class="cert-meta">
+              <span>Jul/2026</span>
+              <a class="cert-open" href="certificados/Rafael-Regis-Cavalcante-Ramos-Costa-PHP-Basico-40-Horas-Certificado-Curso-em-Video.pdf" target="_blank" rel="noreferrer"><span data-en="View certificate">Ver certificado</span> <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </p>
+          </article>
+
+          <article class="card cert reveal" data-cat="dev">
+            <div class="cert-top">
+              <span class="cert-issuer"><i class="fa-brands fa-git-alt"></i> Pensar Cursos</span>
+              <span class="cert-hours">60h</span>
+            </div>
+            <h3 data-en="Git and GitHub — Basic and Intermediate">Git e GitHub — Básico e Intermediário</h3>
+            <p class="cert-meta">
+              <span>Jul/2026</span>
+              <a class="cert-open" href="certificados/git-e-github-basico-e-intermediario_copy.pdf" target="_blank" rel="noreferrer"><span data-en="View certificate">Ver certificado</span> <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </p>
+          </article>
+
+          <article class="card cert reveal" data-cat="dev">
+            <div class="cert-top">
+              <span class="cert-issuer"><i class="fa-solid fa-layer-group"></i> DIO</span>
+              <span class="cert-hours">Online</span>
+            </div>
+            <h3 data-en="Introduction to Full Stack Development">Introdução ao Desenvolvimento Full Stack</h3>
+            <p class="cert-meta">
+              <span>Digital Innovation One</span>
+              <a class="cert-open" href="certificados/Introdu%C3%A7%C3%A3o%20a%20desenvolvimento%20fullstack.pdf" target="_blank" rel="noreferrer"><span data-en="View certificate">Ver certificado</span> <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </p>
+          </article>
+
+          <article class="card cert reveal" data-cat="dev">
+            <div class="cert-top">
+              <span class="cert-issuer"><i class="fa-brands fa-java"></i> DIO</span>
+              <span class="cert-hours">Online</span>
+            </div>
+            <h3 data-en="Introduction to Java">Introdução a Java</h3>
+            <p class="cert-meta">
+              <span>Digital Innovation One</span>
+              <a class="cert-open" href="certificados/introdu%C3%A7%C3%A3o%20a%20java.pdf" target="_blank" rel="noreferrer"><span data-en="View certificate">Ver certificado</span> <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </p>
+          </article>
+
+          <article class="card cert reveal" data-cat="outros">
+            <div class="cert-top">
+              <span class="cert-issuer"><i class="fa-solid fa-language"></i> Transfer English</span>
+              <span class="cert-hours">60h</span>
+            </div>
+            <h3 data-en="Transfer Experience — Operational English (CEFR)">Transfer Experience — Inglês Operacional (CEFR)</h3>
+            <p class="cert-meta">
+              <span>Mar/2023</span>
+              <a class="cert-open" href="certificados/transferEnglish.pdf" target="_blank" rel="noreferrer"><span data-en="View certificate">Ver certificado</span> <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </p>
+          </article>
+
+          <article class="card cert reveal" data-cat="outros">
+            <div class="cert-top">
+              <span class="cert-issuer"><i class="fa-solid fa-users"></i> SEBRAE/CE</span>
+              <span class="cert-hours" data-en="Event">Evento</span>
+            </div>
+            <h3>Siará Tech Summit 2023</h3>
+            <p class="cert-meta">
+              <span>Nov/2023</span>
+              <a class="cert-open" href="certificados/Certificado%20Rafael%20R%C3%A9gis%20Cavalcante%20Ramos%20Costa%20.pdf" target="_blank" rel="noreferrer"><span data-en="View certificate">Ver certificado</span> <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </p>
+          </article>
+        </div>
+
+        <p class="cert-note" data-en="The original files live in the <code>certificados/</code> folder of this site and open in a new tab.">Os arquivos originais ficam na pasta <code>certificados/</code> deste site e abrem em nova aba.</p>
+      </div>
+    </section>
+
     <section id="formacao">
       <div class="container">
         <div class="section-head reveal">
           <div>
-            <p class="section-kicker">Formação</p>
-            <h2>Formação técnica somada a aprendizado contínuo.</h2>
+            <p class="section-kicker" data-en="Education">Formação</p>
+            <h2 data-en="Technical education plus continuous learning.">Formação técnica somada a aprendizado contínuo.</h2>
           </div>
-          <p class="section-copy">
+          <p class="section-copy" data-en="A foundation in software development, networks, support and English, to work with teams, users and technical documentation.">
             Construção de base em desenvolvimento de software, redes, suporte e inglês para atuar com times, usuários e documentação técnica.
           </p>
         </div>
@@ -1084,39 +2319,46 @@
         <div class="grid grid-2">
           <article class="card reveal">
             <div class="icon-box"><i class="fa-solid fa-graduation-cap"></i></div>
-            <h3>Formação acadêmica</h3>
+            <h3 data-en="Academic education">Formação acadêmica</h3>
             <div class="timeline">
-              <div class="timeline-item">
-                <strong>Análise e Desenvolvimento de Sistemas</strong>
-                <span>SENAC - concluído em 2025</span>
+              <div class="timeline-item is-upcoming">
+                <strong data-en="Postgraduate degree <span class=&quot;soon-badge&quot;>Coming soon</span>">Pós-graduação <span class="soon-badge">Em breve</span></strong>
+                <span data-en="Planned as the next step in my career">Planejada para os próximos passos da carreira</span>
               </div>
               <div class="timeline-item">
-                <strong>Técnico em Redes de Computadores</strong>
-                <span>SENAI</span>
+                <strong data-en="Technologist Degree in Systems Analysis and Development">Tecnólogo em Análise e Desenvolvimento de Sistemas</strong>
+                <span data-en="SENAC Ceará · completed Jul/2025, graduation ceremony Sep/2025">SENAC Ceará · conclusão em jul/2025, colação em set/2025</span>
+              </div>
+              <div class="timeline-item">
+                <strong data-en="Computer Networks Technician">Técnico em Redes de Computadores</strong>
+                <span data-en="SENAI Ceará · 1,400 hours, completed Nov/2022">SENAI Ceará · 1400 horas, concluído em nov/2022</span>
               </div>
             </div>
           </article>
 
           <article class="card reveal">
             <div class="icon-box"><i class="fa-solid fa-certificate"></i></div>
-            <h3>Formação complementar</h3>
+            <h3 data-en="Complementary training">Formação complementar</h3>
             <div class="timeline">
               <div class="timeline-item">
-                <strong>Curso Aberto de Desenvolvimento Full Stack</strong>
-                <span>Full Stack Open</span>
+                <strong>Introduction to Front-End Development</strong>
+                <span data-en="Meta · Coursera, Dec/2025">Meta · Coursera, dez/2025</span>
               </div>
               <div class="timeline-item">
-                <strong>Meta Front-End Developer</strong>
-                <span>Coursera</span>
+                <strong data-en="Laravel and PHP">Laravel e PHP</strong>
+                <span data-en="Udemy and Curso em Vídeo · 86 hours">Udemy e Curso em Vídeo · 86 horas</span>
               </div>
               <div class="timeline-item">
-                <strong>JavaScript</strong>
-                <span>Curso em Vídeo</span>
+                <strong data-en="Agile Management with Scrum, Kanban and Scaled Agile">Gestão Ágil com Scrum, Kanban e Ágil Escalado</strong>
+                <span data-en="Udemy · 27 hours">Udemy · 27 horas</span>
               </div>
               <div class="timeline-item">
-                <strong>Inglês B2 - Operational English</strong>
-                <span>Transfer English</span>
+                <strong data-en="Operational English (CEFR)">Inglês Operacional (CEFR)</strong>
+                <span data-en="Transfer English · 60 hours">Transfer English · 60 horas</span>
               </div>
+            </div>
+            <div class="section-actions">
+              <a class="button button-secondary" href="#certificados" data-en="<i class=&quot;fa-solid fa-award&quot;></i> See all 13 certificates"><i class="fa-solid fa-award"></i> Ver os 13 certificados</a>
             </div>
           </article>
         </div>
@@ -1128,20 +2370,20 @@
         <div class="contact-band reveal">
           <div class="contact-grid">
             <div>
-              <p class="section-kicker">Contato</p>
-              <h2>Vamos construir algo útil, rápido e bem feito?</h2>
-              <p class="section-copy">
+              <p class="section-kicker" data-en="Contact">Contato</p>
+              <h2 data-en="Let's build something useful, fast and well made?">Vamos construir algo útil, rápido e bem feito?</h2>
+              <p class="section-copy" data-en="I'm open to talking about web and mobile development, integrations, dashboards and the evolution of digital products.">
                 Estou aberto a conversar sobre desenvolvimento web, mobile, integrações, dashboards e evolução de produtos digitais.
               </p>
               <div class="section-actions">
-                <a class="button button-primary" href="mailto:rafaelregis2004@gmail.com"><i class="fa-solid fa-envelope"></i> Enviar e-mail</a>
-                <a class="button button-secondary" href="Curriculo_Rafael_Regis.docx" download><i class="fa-solid fa-file-arrow-down"></i> Currículo</a>
+                <a class="button button-primary" href="mailto:rafaelregis2004@gmail.com" data-en="<i class=&quot;fa-solid fa-envelope&quot;></i> Send an email"><i class="fa-solid fa-envelope"></i> Enviar e-mail</a>
+                <a class="button button-secondary" href="https://www.linkedin.com/in/rafael-regis" target="_blank" rel="noreferrer"><i class="fa-brands fa-linkedin-in"></i> LinkedIn</a>
               </div>
             </div>
 
             <div class="contact-links" aria-label="Canais de contato">
               <a class="contact-link" href="mailto:rafaelregis2004@gmail.com"><i class="fa-solid fa-envelope"></i> Email</a>
-              <a class="contact-link" href="tel:+5585994183212"><i class="fa-solid fa-phone"></i> Telefone</a>
+              <a class="contact-link" href="tel:+5585994183212" data-en="<i class=&quot;fa-solid fa-phone&quot;></i> Phone"><i class="fa-solid fa-phone"></i> Telefone</a>
               <a class="contact-link" href="https://www.linkedin.com/in/rafael-regis" target="_blank" rel="noreferrer"><i class="fa-brands fa-linkedin-in"></i> LinkedIn</a>
               <a class="contact-link" href="https://github.com/Regis-Rafael" target="_blank" rel="noreferrer"><i class="fa-brands fa-github"></i> GitHub</a>
             </div>
@@ -1151,10 +2393,20 @@
     </section>
   </main>
 
+  <dialog class="lightbox" data-lightbox aria-label="Print do projeto ampliado">
+    <img data-lightbox-img alt="" />
+    <div class="lightbox-bar">
+      <p class="lightbox-caption" data-lightbox-caption></p>
+      <button class="lightbox-close" type="button" data-lightbox-close aria-label="Fechar">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+  </dialog>
+
   <footer class="footer">
     <div class="container footer-row">
       <span>© <span data-year></span> Rafael Régis Cavalcante Ramos Costa.</span>
-      <span>Fortaleza, CE · Desenvolvedor Full Stack</span>
+      <span data-en="Fortaleza, Brazil · Full Stack Developer">Fortaleza, CE · Desenvolvedor Full Stack</span>
     </div>
   </footer>
 
@@ -1165,27 +2417,125 @@
     const navAnchors = [...document.querySelectorAll(".nav-links a")];
     const sections = [...document.querySelectorAll("main section[id]")];
 
-    document.querySelector("[data-year]").textContent = new Date().getFullYear();
+    const birthDate = new Date(2004, 9, 14);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const hadBirthday =
+      today.getMonth() > birthDate.getMonth() ||
+      (today.getMonth() === birthDate.getMonth() && today.getDate() >= birthDate.getDate());
+    if (!hadBirthday) age -= 1;
 
-    const setHeaderState = () => {
-      header.classList.toggle("is-scrolled", window.scrollY > 24);
+    // Idade e ano são injetados por JS, então precisam ser reaplicados
+    // depois de cada troca de idioma (a troca reescreve o innerHTML).
+    const fillDynamicText = () => {
+      document.querySelectorAll("[data-year]").forEach((node) => {
+        node.textContent = new Date().getFullYear();
+      });
+      document.querySelectorAll("[data-age]").forEach((node) => {
+        node.textContent = age;
+      });
     };
 
-    setHeaderState();
-    window.addEventListener("scroll", setHeaderState, { passive: true });
+    /* ===================== Idioma PT / EN ===================== */
+    const langToggle = document.querySelector("[data-lang-toggle]");
+    const langLabel = document.querySelector("[data-lang-label]");
+    const i18nNodes = [...document.querySelectorAll("[data-en]")];
+
+    // Guarda o português original de cada nó antes de qualquer troca.
+    i18nNodes.forEach((node) => {
+      node.dataset.pt = node.innerHTML;
+    });
+
+    const menuLabels = { pt: "Abrir menu", en: "Open menu" };
+    const menuLabelsOpen = { pt: "Fechar menu", en: "Close menu" };
+
+    const setLanguage = (lang) => {
+      const isEn = lang === "en";
+
+      document.documentElement.lang = isEn ? "en" : "pt-BR";
+      document.title = isEn
+        ? "Rafael Régis | Full Stack Developer"
+        : "Rafael Régis | Desenvolvedor Full Stack";
+
+      i18nNodes.forEach((node) => {
+        node.innerHTML = isEn ? node.dataset.en : node.dataset.pt;
+      });
+
+      if (langLabel) langLabel.textContent = isEn ? "Português" : "English";
+      if (langToggle) {
+        langToggle.setAttribute("aria-label", isEn ? "Mudar para português" : "Switch to English");
+      }
+
+      const isMenuOpen = navLinks.classList.contains("is-open");
+      menuToggle.setAttribute("aria-label", (isMenuOpen ? menuLabelsOpen : menuLabels)[isEn ? "en" : "pt"]);
+
+      const lightboxClose = document.querySelector("[data-lightbox-close]");
+      if (lightboxClose) lightboxClose.setAttribute("aria-label", isEn ? "Close" : "Fechar");
+
+      // Legenda do lightbox segue o idioma ativo.
+      document.querySelectorAll("[data-shot]").forEach((trigger) => {
+        const caption = isEn ? trigger.dataset.captionEn : trigger.dataset.captionPt;
+        if (caption) trigger.dataset.caption = caption;
+      });
+
+      fillDynamicText();
+      try {
+        localStorage.setItem("lang", lang);
+      } catch (error) {
+        /* modo privado bloqueia o storage — a troca continua valendo na sessão */
+      }
+    };
+
+    document.querySelectorAll("[data-shot]").forEach((trigger) => {
+      trigger.dataset.captionPt = trigger.dataset.caption || "";
+    });
+
+    // Português é o padrão; só abre em inglês se o visitante já tiver escolhido antes.
+    let savedLang = "pt";
+    try {
+      const stored = localStorage.getItem("lang");
+      if (stored === "en" || stored === "pt") savedLang = stored;
+    } catch (error) {
+      /* storage indisponível — segue no padrão */
+    }
+
+    setLanguage(savedLang);
+
+    if (langToggle) {
+      langToggle.addEventListener("click", () => {
+        setLanguage(document.documentElement.lang === "en" ? "pt" : "en");
+      });
+    }
+
+    const progressBar = document.querySelector("[data-progress]");
+
+    const onScroll = () => {
+      header.classList.toggle("is-scrolled", window.scrollY > 24);
+      const doc = document.documentElement;
+      const scrollable = doc.scrollHeight - doc.clientHeight;
+      const ratio = scrollable > 0 ? window.scrollY / scrollable : 0;
+      if (progressBar) progressBar.style.transform = `scaleX(${ratio})`;
+    };
+
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    const setMenuState = (isOpen) => {
+      const lang = document.documentElement.lang === "en" ? "en" : "pt";
+      navLinks.classList.toggle("is-open", isOpen);
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.setAttribute("aria-label", (isOpen ? menuLabelsOpen : menuLabels)[lang]);
+      menuToggle.innerHTML = isOpen
+        ? '<i class="fa-solid fa-xmark"></i>'
+        : '<i class="fa-solid fa-bars"></i>';
+    };
 
     menuToggle.addEventListener("click", () => {
-      const isOpen = navLinks.classList.toggle("is-open");
-      menuToggle.setAttribute("aria-expanded", String(isOpen));
-      menuToggle.innerHTML = isOpen ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-bars"></i>';
+      setMenuState(!navLinks.classList.contains("is-open"));
     });
 
     navAnchors.forEach((anchor) => {
-      anchor.addEventListener("click", () => {
-        navLinks.classList.remove("is-open");
-        menuToggle.setAttribute("aria-expanded", "false");
-        menuToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
-      });
+      anchor.addEventListener("click", () => setMenuState(false));
     });
 
     const revealObserver = new IntersectionObserver((entries) => {
@@ -1202,6 +2552,28 @@
       revealObserver.observe(element);
     });
 
+    // Fade-in individual dos itens internos, com leve cascata entre irmãos
+    const softItems = document.querySelectorAll(
+      ".timeline-item, .job li, .check-list li, .status-list li, .fact, .metric, .tag"
+    );
+
+    const softObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const siblings = [...el.parentElement.children].filter((n) => n.classList.contains("soft-reveal"));
+        const order = Math.max(0, siblings.indexOf(el));
+        el.style.transitionDelay = `${Math.min(order, 6) * 80}ms`;
+        el.classList.add("in");
+        softObserver.unobserve(el);
+      });
+    }, { threshold: 0.2, rootMargin: "0px 0px -6% 0px" });
+
+    softItems.forEach((el) => {
+      el.classList.add("soft-reveal");
+      softObserver.observe(el);
+    });
+
     const navObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
@@ -1211,6 +2583,55 @@
     }, { rootMargin: "-45% 0px -45% 0px", threshold: 0 });
 
     sections.forEach((section) => navObserver.observe(section));
+
+    const filterButtons = [...document.querySelectorAll("[data-filter]")];
+    const certCards = [...document.querySelectorAll("[data-cert-grid] .cert")];
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const filter = button.dataset.filter;
+        filterButtons.forEach((item) => {
+          const isActive = item === button;
+          item.classList.toggle("is-active", isActive);
+          item.setAttribute("aria-pressed", String(isActive));
+        });
+        certCards.forEach((card) => {
+          card.hidden = filter !== "todos" && card.dataset.cat !== filter;
+        });
+      });
+    });
+
+    // Lightbox dos prints de projeto
+    const lightbox = document.querySelector("[data-lightbox]");
+
+    if (lightbox) {
+      const lightboxImg = lightbox.querySelector("[data-lightbox-img]");
+      const lightboxCaption = lightbox.querySelector("[data-lightbox-caption]");
+
+      document.querySelectorAll("[data-shot]").forEach((trigger) => {
+        const preview = trigger.querySelector("img");
+
+        // Se o print ainda não estiver na pasta, o card some em vez de quebrar.
+        if (preview) {
+          preview.addEventListener("error", () => {
+            trigger.hidden = true;
+          });
+        }
+
+        trigger.addEventListener("click", () => {
+          lightboxImg.src = trigger.dataset.shot;
+          lightboxImg.alt = preview ? preview.alt : "";
+          lightboxCaption.textContent = trigger.dataset.caption || "";
+          lightbox.showModal();
+        });
+      });
+
+      lightbox.querySelector("[data-lightbox-close]").addEventListener("click", () => lightbox.close());
+      lightbox.addEventListener("click", (event) => {
+        if (event.target === lightbox) lightbox.close();
+      });
+      lightbox.addEventListener("close", () => lightboxImg.removeAttribute("src"));
+    }
 
     document.querySelectorAll(".card").forEach((card) => {
       card.addEventListener("pointermove", (event) => {
